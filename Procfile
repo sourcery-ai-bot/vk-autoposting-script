@@ -1,1 +1,1 @@
-clock: python final.py
+clock: python script.py
