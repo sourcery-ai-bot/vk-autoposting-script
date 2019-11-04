@@ -94,7 +94,7 @@ days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('interval', seconds=30)
+@sched.scheduled_job('interval', minutes=30)
 def timed_job():
     params = (
         ('group_id', '152741251'),
@@ -104,7 +104,7 @@ def timed_job():
     )
 
     response = requests.get('https://api.vk.com/method/photos.getUploadServer', params=params)
-    print(response)
+    print(response.text)
     upload_server = json.loads(response.text)['response']['upload_url']
     with session_scope() as s:
         # Base.metadata.drop_all(engine)
@@ -126,7 +126,7 @@ def timed_job():
         response = requests.get('https://api.vk.com/method/photos.get', params=params)
         posting.offset_counter = posting.offset_counter + 1 #always increase the counter
         s.add(posting)
-        sizes = response.json()['response']['items'][0]['sizes']
+        sizes = json.loads(response.text)['response']['items'][0]['sizes']
         url = sizes[len(sizes)-1]['url']
         # url = 'https://pm1.narvii.com/6319/3d43ac7556aad6cf30e350ce100c10ce083fb7a8_hq.jpg'
         file_path = os.path.basename(url)
@@ -151,9 +151,8 @@ def timed_job():
     )
 
     response = requests.get('https://api.vk.com/method/photos.save', params=params)
-    response_json = response.json()
-    owner_id = response_json['response'][0]['owner_id']
-    photo_id = response_json['response'][0]['id']
+    owner_id = json.loads(response.text)['response'][0]['owner_id']
+    photo_id = json.loads(response.text)['response'][0]['id']
     photo_full_id = f'photo{owner_id}_{photo_id}'
     print(photo_full_id)
 
