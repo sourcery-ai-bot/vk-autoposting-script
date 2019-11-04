@@ -94,7 +94,7 @@ days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('interval', minutes=30)
+@sched.scheduled_job('interval', seconds=30)
 def timed_job():
     params = (
         ('group_id', '152741251'),
@@ -104,6 +104,7 @@ def timed_job():
     )
 
     response = requests.get('https://api.vk.com/method/photos.getUploadServer', params=params)
+    print(response)
     upload_server = json.loads(response.text)['response']['upload_url']
     with session_scope() as s:
         # Base.metadata.drop_all(engine)
