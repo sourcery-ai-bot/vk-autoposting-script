@@ -114,7 +114,23 @@ def timed_job():
 
 
 
-@sched.scheduled_job('cron', day_of_week='wed', hour=13)
+
+@sched.scheduled_job('cron', day_of_week='fri', hour=13, minute=23)
+def scheduled_job():
+    params = (
+        ('owner_id', '-152741251'),
+        ('from_group', '1'),
+        ('attachments', 'photo-176795646_457239122'),
+        ('access_token', user_token),
+        ('v', 5.103),
+    )
+
+    response = requests.get('https://api.vk.com/method/wall.post', params=params)
+
+    print(response.text)
+
+
+@sched.scheduled_job('cron', day_of_week='wed', hour=13, minute=42)
 def scheduled_job():
     params = (
         ('owner_id', '-152741251'),
