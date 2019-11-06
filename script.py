@@ -46,7 +46,7 @@ def timed_job():
 
     with session_scope() as s:
             # Base.metadata.drop_all(engine)
-            Base.metadata.create_a
+            Base.metadata.create_all(engine)
             if not s.query(Counter).first():
                 counter = Counter()
                 s.add(counter)
@@ -60,9 +60,9 @@ def timed_job():
                 print(e.message)
                 raise e
             image_url = json.loads(response.text)['data'][image_index]['path']
-            file_path = os.path.basename(url)
+            file_path = os.path.basename(image_url)
             f = open(file_path, 'wb')
-            f.write(requests.get(url).content)
+            f.write(requests.get(image_url).content)
             f.close()
 
             try:
