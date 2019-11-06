@@ -186,3 +186,5 @@ def scheduled_job():
 
 
 sched.start()
+
+# https://wallhaven.cc/api/v1/search?categories=110&purity=100&sorting=favorites&order=desc
