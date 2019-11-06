@@ -5,13 +5,21 @@ from sqlalchemy.dialects.postgresql import MONEY
 Base = declarative_base()
 
 
-class Posting(Base):
-    __tablename__ = 'postings'
+# class Image(Base):
+#     __tablename__ = 'images'
+#     id = Column(Integer, primary_key=True)
+#     identificator = Column(Integer)
+    
+#     def __repr__(self):
+#         return "<Image(index='{}'>"\
+#                 .format(self.identificator)
+
+
+class Counter(Base):
+    __tablename__ = 'counters'
     id = Column(Integer, primary_key=True)
-    offset_counter = Column(Integer)
-    group = Column(Integer)
-    day = Column(Integer)
+    index = Column(Integer, default=0)
     
     def __repr__(self):
-        return "<Posting(offset_counter='{}', group='{}', day={})>"\
-                .format(self.offset_counter, self.group, self.day)
+        return "<Counter(index='{}'>"\
+                .format(self.index)
