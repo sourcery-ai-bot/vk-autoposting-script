@@ -30,7 +30,7 @@ def session_scope():
     finally:
         session.close()
 
-@sched.scheduled_job('cron', hour='10-22/2,0', args=['job1'])
+@sched.scheduled_job('cron', hour='10-22/2,0')
 def timed_job():
     params = (
         ('group_id', '152741251'),
@@ -115,7 +115,7 @@ def timed_job():
 
 
 
-@sched.scheduled_job('cron', day_of_week='fri', hour=13, minute=23, args=['job2'])
+@sched.scheduled_job('cron', day_of_week='fri', hour=13, minute=23)
 def scheduled_job():
     params = (
         ('owner_id', '-152741251'),
@@ -130,7 +130,7 @@ def scheduled_job():
     print(response.text)
 
 
-@sched.scheduled_job('cron', day_of_week='wed', hour=13, minute=42, args=['job3'])
+@sched.scheduled_job('cron', day_of_week='wed', hour=13, minute=42)
 def scheduled_job():
     params = (
         ('owner_id', '-152741251'),
