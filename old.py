@@ -128,9 +128,8 @@ def timed_job():
         url = sizes[len(sizes)-1]['url']
         # url = 'https://pm1.narvii.com/6319/3d43ac7556aad6cf30e350ce100c10ce083fb7a8_hq.jpg'
         file_path = os.path.basename(url)
-        f = open(file_path, 'wb')
-        f.write(requests.get(url).content)
-        f.close()
+        with open(file_path, 'wb') as f:
+            f.write(requests.get(url).content)
     files = {'file1': open(file_path, 'rb')}
     response = requests.post(upload_server, files=files)
     os.remove(file_path)
